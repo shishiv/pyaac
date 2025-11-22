@@ -2,24 +2,31 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { Link } from 'react-router-dom'
+import { useAuthContext } from '@/context/AuthContext'
+import Button from '@/components/Button'
+import Card from '@/components/Card'
 
-const registerSchema = z.object({
-  name: z
-    .string()
-    .min(3, 'Account name must be at least 3 characters')
-    .max(32, 'Account name must be at most 32 characters')
-    .regex(/^[a-zA-Z0-9]+$/, 'Account name must be alphanumeric'),
-  password: z.string().min(8, 'Password must be at least 8 characters'),
-  confirmPassword: z.string(),
-  email: z.string().email('Invalid email address').optional().or(z.literal('')),
-}).refine((data) => data.password === data.confirmPassword, {
-  message: "Passwords don't match",
-  path: ['confirmPassword'],
-})
+const registerSchema = z
+  .object({
+    name: z
+      .string()
+      .min(3, 'Account name must be at least 3 characters')
+      .max(32, 'Account name must be at most 32 characters')
+      .regex(/^[a-zA-Z0-9]+$/, 'Account name must be alphanumeric'),
+    password: z.string().min(8, 'Password must be at least 8 characters'),
+    confirmPassword: z.string(),
+    email: z.string().email('Invalid email address').optional().or(z.literal('')),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords don't match",
+    path: ['confirmPassword'],
+  })
 
 type RegisterForm = z.infer<typeof registerSchema>
 
 export default function RegisterPage() {
+  const { register: registerAccount, isRegistering, registerError } = useAuthContext()
+
   const {
     register,
     handleSubmit,
@@ -29,15 +36,27 @@ export default function RegisterPage() {
   })
 
   const onSubmit = async (data: RegisterForm) => {
-    console.log('Register:', data)
-    // TODO: Implement register API call
+    try {
+      await registerAccount({
+        name: data.name,
+        password: data.password,
+        email: data.email || undefined,
+      })
+    } catch (error) {
+      console.error('Registration failed:', error)
+    }
   }
 
   return (
     <div className="max-w-md mx-auto mt-8">
-      <div className="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
-        <h2 className="text-2xl font-bold text-center mb-6">Create Account</h2>
+      <Card title="Create Account">
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          {registerError && (
+            <div className="p-3 bg-red-100 border border-red-400 text-red-700 rounded">
+              {registerError.message || 'Registration failed. Please try again.'}
+            </div>
+          )}
+
           <div>
             <label htmlFor="name" className="block text-sm font-medium mb-1">
               Account Name
@@ -98,12 +117,9 @@ export default function RegisterPage() {
             )}
           </div>
 
-          <button
-            type="submit"
-            className="w-full bg-primary-600 text-white py-2 px-4 rounded-md hover:bg-primary-700 transition-colors"
-          >
+          <Button type="submit" className="w-full" isLoading={isRegistering}>
             Create Account
-          </button>
+          </Button>
         </form>
 
         <p className="mt-4 text-center text-sm text-gray-600 dark:text-gray-400">
@@ -112,7 +128,7 @@ export default function RegisterPage() {
             Login here
           </Link>
         </p>
-      </div>
+      </Card>
     </div>
   )
 }

@@ -2,6 +2,9 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { Link } from 'react-router-dom'
+import { useAuthContext } from '@/context/AuthContext'
+import Button from '@/components/Button'
+import Card from '@/components/Card'
 
 const loginSchema = z.object({
   name: z.string().min(3, 'Account name must be at least 3 characters'),
@@ -11,6 +14,8 @@ const loginSchema = z.object({
 type LoginForm = z.infer<typeof loginSchema>
 
 export default function LoginPage() {
+  const { login, isLoggingIn, loginError } = useAuthContext()
+
   const {
     register,
     handleSubmit,
@@ -20,15 +25,24 @@ export default function LoginPage() {
   })
 
   const onSubmit = async (data: LoginForm) => {
-    console.log('Login:', data)
-    // TODO: Implement login API call
+    try {
+      await login(data)
+    } catch (error) {
+      // Error is handled by the context
+      console.error('Login failed:', error)
+    }
   }
 
   return (
     <div className="max-w-md mx-auto mt-8">
-      <div className="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
-        <h2 className="text-2xl font-bold text-center mb-6">Login</h2>
+      <Card title="Login">
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          {loginError && (
+            <div className="p-3 bg-red-100 border border-red-400 text-red-700 rounded">
+              {loginError.message || 'Login failed. Please check your credentials.'}
+            </div>
+          )}
+
           <div>
             <label htmlFor="name" className="block text-sm font-medium mb-1">
               Account Name
@@ -59,12 +73,9 @@ export default function LoginPage() {
             )}
           </div>
 
-          <button
-            type="submit"
-            className="w-full bg-primary-600 text-white py-2 px-4 rounded-md hover:bg-primary-700 transition-colors"
-          >
+          <Button type="submit" className="w-full" isLoading={isLoggingIn}>
             Login
-          </button>
+          </Button>
         </form>
 
         <p className="mt-4 text-center text-sm text-gray-600 dark:text-gray-400">
@@ -73,7 +84,7 @@ export default function LoginPage() {
             Register here
           </Link>
         </p>
-      </div>
+      </Card>
     </div>
   )
 }
