@@ -13,7 +13,7 @@ interface ServerStatus {
 interface OnlinePlayer {
   name: string
   level: number
-  vocation: string
+  vocation: number
 }
 
 export function useServerStatus() {

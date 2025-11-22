@@ -1,28 +1,8 @@
 import { useState } from 'react'
 import { useHighscores, HighscoreType } from '@/hooks/useHighscores'
 import Card from '@/components/Card'
-
-const VOCATIONS: Record<number, string> = {
-  0: 'None',
-  1: 'Sorcerer',
-  2: 'Druid',
-  3: 'Paladin',
-  4: 'Knight',
-  5: 'Master Sorcerer',
-  6: 'Elder Druid',
-  7: 'Royal Paladin',
-  8: 'Elite Knight',
-}
-
-const SKILLS = [
-  { name: 'fist', label: 'Fist Fighting' },
-  { name: 'club', label: 'Club Fighting' },
-  { name: 'sword', label: 'Sword Fighting' },
-  { name: 'axe', label: 'Axe Fighting' },
-  { name: 'dist', label: 'Distance Fighting' },
-  { name: 'shielding', label: 'Shielding' },
-  { name: 'fishing', label: 'Fishing' },
-]
+import { VOCATIONS, getVocationName } from '@/lib/vocations'
+import { SKILLS, getSkillName } from '@/lib/skills'
 
 export default function HighscoresPage() {
   const [activeTab, setActiveTab] = useState<'experience' | 'magic' | 'skill'>('experience')

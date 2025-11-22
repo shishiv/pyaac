@@ -7,7 +7,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
-from app.api.v1 import accounts, auth, characters, guilds, highscores, news, server
+from app.api.v1 import accounts, auth, characters, deaths, guilds, highscores, news, server
 from app.config import settings
 from app.database import close_db, init_db
 
@@ -83,6 +83,7 @@ async def root() -> dict[str, str]:
 app.include_router(auth.router, prefix="/api/v1")
 app.include_router(accounts.router, prefix="/api/v1")
 app.include_router(characters.router, prefix="/api/v1")
+app.include_router(deaths.router, prefix="/api/v1")
 app.include_router(guilds.router, prefix="/api/v1")
 app.include_router(highscores.router, prefix="/api/v1")
 app.include_router(news.router, prefix="/api/v1")

@@ -1,5 +1,6 @@
 import { useServerStatus, useOnlinePlayers } from '@/hooks/useServer'
 import Card from '@/components/Card'
+import { getVocationName, getVocationColor } from '@/lib/vocations'
 
 export default function ServerStatusPage() {
   const { status, isLoading: statusLoading } = useServerStatus()
@@ -78,10 +79,14 @@ export default function ServerStatusPage() {
                 </thead>
                 <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
                   {players?.map((player) => (
-                    <tr key={player.name}>
-                      <td className="px-6 py-4 whitespace-nowrap">{player.name}</td>
+                    <tr key={player.name} className="hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+                      <td className="px-6 py-4 whitespace-nowrap font-medium text-primary-600 dark:text-primary-400">
+                        {player.name}
+                      </td>
                       <td className="px-6 py-4 whitespace-nowrap">{player.level}</td>
-                      <td className="px-6 py-4 whitespace-nowrap">{player.vocation}</td>
+                      <td className={`px-6 py-4 whitespace-nowrap ${getVocationColor(player.vocation)} font-medium`}>
+                        {getVocationName(player.vocation)}
+                      </td>
                     </tr>
                   ))}
                 </tbody>

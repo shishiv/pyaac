@@ -3,6 +3,7 @@ import { useNews } from '@/hooks/useNews'
 import { useServerStatus } from '@/hooks/useServer'
 import Card from '@/components/Card'
 import Button from '@/components/Button'
+import RecentDeaths from '@/components/RecentDeaths'
 
 export default function HomePage() {
   const { news, isLoading: newsLoading } = useNews(3)
@@ -76,42 +77,49 @@ export default function HomePage() {
         </Card>
       </div>
 
-      {/* Latest News */}
-      <div className="mb-12">
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Latest News</h2>
-        </div>
-        {newsLoading ? (
-          <div className="text-center py-8">Loading news...</div>
-        ) : news.length === 0 ? (
-          <Card>
-            <div className="text-center py-8 text-gray-500 dark:text-gray-400">
-              No news articles yet. Check back soon!
+      {/* Latest News and Recent Deaths */}
+      <div className="mb-12 grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Latest News - 2 columns */}
+        <div className="lg:col-span-2">
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">Latest News</h2>
+          {newsLoading ? (
+            <div className="text-center py-8">Loading news...</div>
+          ) : news.length === 0 ? (
+            <Card>
+              <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+                No news articles yet. Check back soon!
+              </div>
+            </Card>
+          ) : (
+            <div className="space-y-6">
+              {news.map((article) => (
+                <Card key={article.id} title={article.title}>
+                  <div className="mb-4">
+                    <div className="text-sm text-gray-500 dark:text-gray-400 mb-2">
+                      {formatDate(article.date)}
+                      {article.category && (
+                        <span className="ml-2 px-2 py-1 bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 rounded text-xs uppercase">
+                          {article.category}
+                        </span>
+                      )}
+                    </div>
+                    <div className="text-gray-700 dark:text-gray-300 prose dark:prose-invert max-w-none">
+                      {article.body.length > 300
+                        ? `${article.body.substring(0, 300)}...`
+                        : article.body}
+                    </div>
+                  </div>
+                </Card>
+              ))}
             </div>
-          </Card>
-        ) : (
-          <div className="space-y-6">
-            {news.map((article) => (
-              <Card key={article.id} title={article.title}>
-                <div className="mb-4">
-                  <div className="text-sm text-gray-500 dark:text-gray-400 mb-2">
-                    {formatDate(article.date)}
-                    {article.category && (
-                      <span className="ml-2 px-2 py-1 bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 rounded text-xs uppercase">
-                        {article.category}
-                      </span>
-                    )}
-                  </div>
-                  <div className="text-gray-700 dark:text-gray-300 prose dark:prose-invert max-w-none">
-                    {article.body.length > 300
-                      ? `${article.body.substring(0, 300)}...`
-                      : article.body}
-                  </div>
-                </div>
-              </Card>
-            ))}
-          </div>
-        )}
+          )}
+        </div>
+
+        {/* Recent Deaths - 1 column */}
+        <div>
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">Recent Deaths</h2>
+          <RecentDeaths limit={10} />
+        </div>
       </div>
 
       {/* Features Grid */}
