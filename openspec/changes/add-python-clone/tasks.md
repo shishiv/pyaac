@@ -3,78 +3,78 @@
 ## Phase 1: Foundation & Project Setup
 
 ### 1. Project Scaffolding
-- [ ] 1.1 Create new repository or directory for Python version
-- [ ] 1.2 Initialize Poetry project with pyproject.toml
-- [ ] 1.3 Configure Python version requirement (>=3.11)
-- [ ] 1.4 Set up directory structure (app/, tests/, docs/)
-- [ ] 1.5 Create .gitignore for Python project
-- [ ] 1.6 Set up EditorConfig for consistent formatting
+- [x] 1.1 Create new repository or directory for Python version
+- [x] 1.2 Initialize Poetry project with pyproject.toml
+- [x] 1.3 Configure Python version requirement (>=3.11)
+- [x] 1.4 Set up directory structure (app/, tests/, docs/)
+- [x] 1.5 Create .gitignore for Python project
+- [x] 1.6 Set up EditorConfig for consistent formatting
 
 ### 2. Development Tools Configuration
-- [ ] 2.1 Configure Ruff for linting and formatting (pyproject.toml)
-- [ ] 2.2 Configure mypy for type checking (strict mode)
-- [ ] 2.3 Set up pytest with pytest-asyncio
+- [x] 2.1 Configure Ruff for linting and formatting (pyproject.toml)
+- [x] 2.2 Configure mypy for type checking (strict mode)
+- [x] 2.3 Set up pytest with pytest-asyncio
 - [ ] 2.4 Configure pre-commit hooks (ruff, mypy, tests)
 - [ ] 2.5 Set up GitHub Actions CI workflow
 
 ### 3. Database Layer
-- [ ] 3.1 Install SQLAlchemy 2.0+ with async support (aiomysql)
-- [ ] 3.2 Create database models for accounts table
-- [ ] 3.3 Create database models for players/characters table
-- [ ] 3.4 Create database models for guilds table
-- [ ] 3.5 Create database models for guild membership tables
-- [ ] 3.6 Add dynamic column detection utilities
-- [ ] 3.7 Set up Alembic for database migrations
-- [ ] 3.8 Create initial migration for Python-specific tables (if needed)
-- [ ] 3.9 Write database connection configuration with environment variables
-- [ ] 3.10 Implement database session management (async context manager)
+- [x] 3.1 Install SQLAlchemy 2.0+ with async support (aiomysql)
+- [x] 3.2 Create database models for accounts table
+- [x] 3.3 Create database models for players/characters table
+- [x] 3.4 Create database models for guilds table
+- [x] 3.5 Create database models for guild membership tables
+- [x] 3.6 Add dynamic column detection utilities
+- [x] 3.7 Set up Alembic for database migrations
+- [x] 3.8 Create initial migration for Python-specific tables (if needed)
+- [x] 3.9 Write database connection configuration with environment variables
+- [x] 3.10 Implement database session management (async context manager)
 
 ### 4. FastAPI Application Setup
-- [ ] 4.1 Install FastAPI and Uvicorn
-- [ ] 4.2 Create main FastAPI application instance
-- [ ] 4.3 Configure CORS middleware for React dev server (localhost:5173)
+- [x] 4.1 Install FastAPI and Uvicorn
+- [x] 4.2 Create main FastAPI application instance
+- [x] 4.3 Configure CORS middleware for React dev server (localhost:5173)
 - [ ] 4.4 Configure security middleware (rate limiting, security headers)
-- [ ] 4.5 Set up OpenAPI/Swagger documentation
+- [x] 4.5 Set up OpenAPI/Swagger documentation
 - [ ] 4.6 Set up logging configuration
-- [ ] 4.7 Create application configuration using Pydantic Settings
-- [ ] 4.8 Implement lifespan events (startup, shutdown)
+- [x] 4.7 Create application configuration using Pydantic Settings
+- [x] 4.8 Implement lifespan events (startup, shutdown)
 - [ ] 4.9 Configure error handling middleware with standardized responses
 
 ### 4B. React Frontend Setup
-- [ ] 4B.1 Create React + TypeScript project with Vite
-- [ ] 4B.2 Install and configure Tailwind CSS with PostCSS
-- [ ] 4B.3 Set up React Router for client-side routing
-- [ ] 4B.4 Install and configure TanStack Query for data fetching
-- [ ] 4B.5 Install Axios for HTTP requests
-- [ ] 4B.6 Set up ESLint + Prettier for code quality
-- [ ] 4B.7 Configure TypeScript strict mode
-- [ ] 4B.8 Create base layout components (Header, Footer, Navigation)
-- [ ] 4B.9 Set up environment variables (.env) for API base URL
-- [ ] 4B.10 Create API client with typed interfaces
+- [x] 4B.1 Create React + TypeScript project with Vite
+- [x] 4B.2 Install and configure Tailwind CSS with PostCSS
+- [x] 4B.3 Set up React Router for client-side routing
+- [x] 4B.4 Install and configure TanStack Query for data fetching
+- [x] 4B.5 Install Axios for HTTP requests
+- [x] 4B.6 Set up ESLint + Prettier for code quality
+- [x] 4B.7 Configure TypeScript strict mode
+- [x] 4B.8 Create base layout components (Header, Footer, Navigation)
+- [x] 4B.9 Set up environment variables (.env) for API base URL
+- [x] 4B.10 Create API client with typed interfaces
 
 ## Phase 2: Account Management (Core Authentication)
 
 ### 5. Account Models & Schemas
-- [ ] 5.1 Create Pydantic schemas for account creation
-- [ ] 5.2 Create Pydantic schemas for account update
-- [ ] 5.3 Create Pydantic schemas for account response
-- [ ] 5.4 Add password validation rules (min length, complexity)
-- [ ] 5.5 Add email validation
+- [x] 5.1 Create Pydantic schemas for account creation
+- [x] 5.2 Create Pydantic schemas for account update
+- [x] 5.3 Create Pydantic schemas for account response
+- [x] 5.4 Add password validation rules (min length, complexity)
+- [x] 5.5 Add email validation
 
 ### 6. Authentication System
-- [ ] 6.1 Install python-jose for JWT handling
-- [ ] 6.2 Implement password hashing with bcrypt
-- [ ] 6.3 Create JWT token generation function (access + refresh tokens)
-- [ ] 6.4 Create JWT token validation function
+- [x] 6.1 Install python-jose for JWT handling
+- [x] 6.2 Implement password hashing with bcrypt
+- [x] 6.3 Create JWT token generation function (access + refresh tokens)
+- [x] 6.4 Create JWT token validation function
 - [ ] 6.5 Implement refresh token mechanism with rotation
-- [ ] 6.6 Implement authentication dependencies for FastAPI (get_current_user)
+- [x] 6.6 Implement authentication dependencies for FastAPI (get_current_user)
 - [ ] 6.7 Create OAuth2 password flow for API
 - [ ] 6.8 Add rate limiting for login attempts (slowapi)
 - [ ] 6.9 Implement token blacklist for logout (Redis or in-memory)
 
 ### 7. Account API Endpoints
-- [ ] 7.1 POST /api/v1/accounts - Create account
-- [ ] 7.2 POST /api/v1/auth/login - Login (JWT)
+- [x] 7.1 POST /api/v1/auth/register - Create account
+- [x] 7.2 POST /api/v1/auth/login - Login (JWT)
 - [ ] 7.3 POST /api/v1/auth/refresh - Refresh token
 - [ ] 7.4 POST /api/v1/auth/logout - Logout
 - [ ] 7.5 GET /api/v1/accounts/me - Get current account
@@ -84,16 +84,16 @@
 - [ ] 7.9 POST /api/v1/accounts/reset - Reset password with token
 
 ### 8. Account React Components
-- [ ] 8.1 Create Login page component with form validation
-- [ ] 8.2 Create Registration page component with form validation
+- [x] 8.1 Create Login page component with form validation
+- [x] 8.2 Create Registration page component with form validation
 - [ ] 8.3 Create Account settings page component
 - [ ] 8.4 Create Password change component
 - [ ] 8.5 Create Password recovery/reset flow components
 - [ ] 8.6 Create authentication context provider (AuthContext)
 - [ ] 8.7 Create protected route wrapper component
-- [ ] 8.8 Implement token storage and refresh logic
+- [x] 8.8 Implement token storage and refresh logic
 - [ ] 8.9 Create login/logout hooks (useAuth)
-- [ ] 8.10 Add form validation with React Hook Form + Zod
+- [x] 8.10 Add form validation with React Hook Form + Zod
 
 ### 9. Account Testing
 - [ ] 9.1 Write unit tests for password hashing
