@@ -3,6 +3,8 @@ import Layout from './components/Layout'
 import HomePage from './pages/HomePage'
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
+import CharactersPage from './pages/CharactersPage'
+import ServerStatusPage from './pages/ServerStatusPage'
 
 function App() {
   return (
@@ -11,6 +13,8 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="/characters" element={<CharactersPage />} />
+        <Route path="/server-status" element={<ServerStatusPage />} />
       </Routes>
     </Layout>
   )
