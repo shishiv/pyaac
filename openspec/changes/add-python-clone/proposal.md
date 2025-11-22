@@ -21,10 +21,11 @@ This is a greenfield project that will run parallel to the existing PHP implemen
 
 ### New Python Project
 - **NEW**: Standalone Python web application (separate repository/directory)
-- **NEW**: Choice between FastAPI (async-first, lightweight) or Django (batteries-included, admin panel)
-- **NEW**: Full type hints with mypy/pyright validation
+- **NEW**: FastAPI backend (async-first, lightweight, type-safe)
+- **NEW**: React + TypeScript frontend (modern SPA architecture)
+- **NEW**: Full type hints with mypy validation (backend) and TypeScript (frontend)
 - **NEW**: Async database access using SQLAlchemy 2.0+ with asyncio
-- **NEW**: Modern Python packaging with Poetry or uv
+- **NEW**: Modern Python packaging with Poetry
 
 ### Core Features (Parity with PHP MyAAC)
 - **NEW**: Account management (creation, login, recovery, settings)
@@ -43,17 +44,34 @@ This is a greenfield project that will run parallel to the existing PHP implemen
 - **NEW**: Migration system for Python-specific tables (if needed)
 
 ### Frontend Integration
-- **NEW**: REST API for frontend consumption
-- **NEW**: Template rendering (Jinja2 for compatibility)
-- **NEW**: Option to use modern frontend frameworks (React, Vue, Svelte) via API
-- **NEW**: Bootstrap 5+ for UI (or maintain Bootstrap 4.6 compatibility)
+- **NEW**: Full REST API backend with OpenAPI/Swagger documentation
+- **NEW**: React Single Page Application (SPA) with TypeScript
+- **NEW**: Tailwind CSS for modern, utility-first styling
+- **NEW**: Vite for fast development builds and HMR (Hot Module Replacement)
+- **NEW**: TanStack Query (React Query) for data fetching and caching
+- **NEW**: React Router for client-side routing
+- **NEW**: Headless UI for accessible, unstyled components
 
 ### Development Tools
-- **NEW**: pytest for testing
-- **NEW**: mypy/pyright for type checking
+
+**Backend**:
+- **NEW**: pytest + pytest-asyncio for testing
+- **NEW**: mypy for type checking
 - **NEW**: ruff for linting and formatting
+- **NEW**: httpx for API testing
 - **NEW**: Docker setup for development and deployment
+
+**Frontend**:
+- **NEW**: Vitest for unit/component testing
+- **NEW**: React Testing Library for component testing
+- **NEW**: Playwright for E2E testing
+- **NEW**: ESLint + Prettier for code quality
+- **NEW**: TypeScript compiler for type checking
+- **NEW**: pnpm for efficient package management
+
+**Shared**:
 - **NEW**: CI/CD with GitHub Actions
+- **NEW**: Docker Compose for full-stack development
 
 ## Impact
 
@@ -98,8 +116,9 @@ This is a large, multi-phase project that should be broken into milestones:
 6. **Phase 6**: Testing, documentation, and deployment guides
 
 ### Open Questions
-1. **Framework Choice**: FastAPI (async, modern, lightweight) vs Django (batteries-included, admin panel, ORM)
-2. **API-First vs Monolith**: Pure REST API + separate frontend, or traditional server-side rendering?
+1. ~~**Framework Choice**~~: ✅ **RESOLVED** - FastAPI for backend
+2. ~~**Frontend Stack**~~: ✅ **RESOLVED** - React + TypeScript + Tailwind CSS
 3. **Repository**: Separate repo or monorepo with PHP version?
 4. **Branding**: Name it differently (PyAAC, MyAAC-Python) or keep MyAAC brand?
 5. **Feature Parity**: Full 1:1 feature parity or start with core features and expand?
+6. **Deployment**: Docker-first or support traditional deployment too?

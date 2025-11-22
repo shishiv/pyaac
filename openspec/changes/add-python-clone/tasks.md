@@ -32,13 +32,25 @@
 ### 4. FastAPI Application Setup
 - [ ] 4.1 Install FastAPI and Uvicorn
 - [ ] 4.2 Create main FastAPI application instance
-- [ ] 4.3 Configure CORS middleware
-- [ ] 4.4 Configure security middleware (CSRF, rate limiting)
-- [ ] 4.5 Set up Jinja2 templates directory
-- [ ] 4.6 Configure static files serving
-- [ ] 4.7 Set up logging configuration
-- [ ] 4.8 Create application configuration using Pydantic Settings
-- [ ] 4.9 Implement lifespan events (startup, shutdown)
+- [ ] 4.3 Configure CORS middleware for React dev server (localhost:5173)
+- [ ] 4.4 Configure security middleware (rate limiting, security headers)
+- [ ] 4.5 Set up OpenAPI/Swagger documentation
+- [ ] 4.6 Set up logging configuration
+- [ ] 4.7 Create application configuration using Pydantic Settings
+- [ ] 4.8 Implement lifespan events (startup, shutdown)
+- [ ] 4.9 Configure error handling middleware with standardized responses
+
+### 4B. React Frontend Setup
+- [ ] 4B.1 Create React + TypeScript project with Vite
+- [ ] 4B.2 Install and configure Tailwind CSS with PostCSS
+- [ ] 4B.3 Set up React Router for client-side routing
+- [ ] 4B.4 Install and configure TanStack Query for data fetching
+- [ ] 4B.5 Install Axios for HTTP requests
+- [ ] 4B.6 Set up ESLint + Prettier for code quality
+- [ ] 4B.7 Configure TypeScript strict mode
+- [ ] 4B.8 Create base layout components (Header, Footer, Navigation)
+- [ ] 4B.9 Set up environment variables (.env) for API base URL
+- [ ] 4B.10 Create API client with typed interfaces
 
 ## Phase 2: Account Management (Core Authentication)
 
@@ -52,13 +64,13 @@
 ### 6. Authentication System
 - [ ] 6.1 Install python-jose for JWT handling
 - [ ] 6.2 Implement password hashing with bcrypt
-- [ ] 6.3 Create JWT token generation function
+- [ ] 6.3 Create JWT token generation function (access + refresh tokens)
 - [ ] 6.4 Create JWT token validation function
-- [ ] 6.5 Implement refresh token mechanism
-- [ ] 6.6 Create session cookie management
-- [ ] 6.7 Implement authentication dependencies for FastAPI
-- [ ] 6.8 Create OAuth2 password flow for API
-- [ ] 6.9 Add rate limiting for login attempts
+- [ ] 6.5 Implement refresh token mechanism with rotation
+- [ ] 6.6 Implement authentication dependencies for FastAPI (get_current_user)
+- [ ] 6.7 Create OAuth2 password flow for API
+- [ ] 6.8 Add rate limiting for login attempts (slowapi)
+- [ ] 6.9 Implement token blacklist for logout (Redis or in-memory)
 
 ### 7. Account API Endpoints
 - [ ] 7.1 POST /api/v1/accounts - Create account
@@ -71,13 +83,17 @@
 - [ ] 7.8 POST /api/v1/accounts/recover - Request password recovery
 - [ ] 7.9 POST /api/v1/accounts/reset - Reset password with token
 
-### 8. Account Web Routes
-- [ ] 8.1 GET /register - Registration page (SSR)
-- [ ] 8.2 POST /register - Handle registration form
-- [ ] 8.3 GET /login - Login page (SSR)
-- [ ] 8.4 POST /login - Handle login form
-- [ ] 8.5 GET /account - Account management page
-- [ ] 8.6 GET /logout - Logout route
+### 8. Account React Components
+- [ ] 8.1 Create Login page component with form validation
+- [ ] 8.2 Create Registration page component with form validation
+- [ ] 8.3 Create Account settings page component
+- [ ] 8.4 Create Password change component
+- [ ] 8.5 Create Password recovery/reset flow components
+- [ ] 8.6 Create authentication context provider (AuthContext)
+- [ ] 8.7 Create protected route wrapper component
+- [ ] 8.8 Implement token storage and refresh logic
+- [ ] 8.9 Create login/logout hooks (useAuth)
+- [ ] 8.10 Add form validation with React Hook Form + Zod
 
 ### 9. Account Testing
 - [ ] 9.1 Write unit tests for password hashing
@@ -113,12 +129,15 @@
 - [ ] 12.4 DELETE /api/v1/characters/{name} - Delete character
 - [ ] 12.5 GET /api/v1/characters/search - Search characters
 
-### 13. Character Web Routes
-- [ ] 13.1 GET /characters/create - Character creation page
-- [ ] 13.2 POST /characters/create - Handle creation form
-- [ ] 13.3 GET /characters - List characters page
-- [ ] 13.4 GET /characters/{name} - Character profile page
-- [ ] 13.5 POST /characters/{name}/delete - Handle deletion
+### 13. Character React Components
+- [ ] 13.1 Create Character creation page component
+- [ ] 13.2 Create Character list component with grid/table view
+- [ ] 13.3 Create Character profile page component
+- [ ] 13.4 Create Character deletion confirmation modal
+- [ ] 13.5 Create Character search component
+- [ ] 13.6 Create Vocation selector component
+- [ ] 13.7 Create Character stats display component
+- [ ] 13.8 Implement character data hooks (useCharacters, useCharacter)
 
 ### 14. Character Testing
 - [ ] 14.1 Test character creation with valid data
@@ -156,11 +175,15 @@
 - [ ] 17.7 DELETE /api/v1/guilds/{id}/members/{char} - Remove member
 - [ ] 17.8 POST /api/v1/guilds/{id}/logo - Upload logo
 
-### 18. Guild Web Routes
-- [ ] 18.1 GET /guilds - Guilds listing page
-- [ ] 18.2 GET /guilds/create - Guild creation page
-- [ ] 18.3 GET /guilds/{id} - Guild profile page
-- [ ] 18.4 GET /guilds/{id}/manage - Guild management page
+### 18. Guild React Components
+- [ ] 18.1 Create Guild listing page component
+- [ ] 18.2 Create Guild creation page component
+- [ ] 18.3 Create Guild profile page component
+- [ ] 18.4 Create Guild management page component (ranks, members)
+- [ ] 18.5 Create Guild logo upload component
+- [ ] 18.6 Create Guild member list component
+- [ ] 18.7 Create Guild invitation management component
+- [ ] 18.8 Implement guild data hooks (useGuilds, useGuild)
 
 ### 19. Guild Testing
 - [ ] 19.1 Test guild creation
@@ -173,35 +196,55 @@
 ## Phase 5: Content Features
 
 ### 20. News System
+**Backend**:
 - [ ] 20.1 Create news models and schemas
 - [ ] 20.2 Implement news CRUD operations
-- [ ] 20.3 Implement markdown rendering with sanitization
+- [ ] 20.3 Implement markdown rendering with sanitization (server-side)
 - [ ] 20.4 Implement news comments system
-- [ ] 20.5 Create news API endpoints
-- [ ] 20.6 Create news web pages with templates
-- [ ] 20.7 Test news creation, editing, deletion
-- [ ] 20.8 Test comment functionality
+- [ ] 20.5 Create news API endpoints (CRUD + comments)
+- [ ] 20.6 Test news creation, editing, deletion
+
+**Frontend**:
+- [ ] 20.7 Create News listing page component
+- [ ] 20.8 Create News detail page component
+- [ ] 20.9 Create News editor component (markdown editor)
+- [ ] 20.10 Create Comments section component
+- [ ] 20.11 Implement news data hooks (useNews, useNewsComments)
+- [ ] 20.12 Test comment functionality
 
 ### 21. Highscores System
+**Backend**:
 - [ ] 21.1 Create highscore query functions (experience)
 - [ ] 21.2 Create highscore query functions (skills)
 - [ ] 21.3 Create highscore query functions (loyalty)
 - [ ] 21.4 Implement highscore caching with Redis or in-memory
-- [ ] 21.5 Create highscore API endpoints
-- [ ] 21.6 Create highscore web pages with pagination
-- [ ] 21.7 Add vocation filtering
-- [ ] 21.8 Test highscore calculations and caching
+- [ ] 21.5 Create highscore API endpoints with pagination
+- [ ] 21.6 Test highscore calculations and caching
+
+**Frontend**:
+- [ ] 21.7 Create Highscores page component with tabs (exp, skills, loyalty)
+- [ ] 21.8 Create Highscore table component with pagination
+- [ ] 21.9 Create Vocation filter component
+- [ ] 21.10 Create Character search in highscores component
+- [ ] 21.11 Implement highscore data hooks (useHighscores)
 
 ### 22. Server Status
+**Backend**:
 - [ ] 22.1 Implement TCP connection check to game server
 - [ ] 22.2 Implement online players count query
 - [ ] 22.3 Implement uptime tracking
 - [ ] 22.4 Create server status API endpoint
 - [ ] 22.5 Implement WebSocket endpoint for real-time updates
-- [ ] 22.6 Create server status web page
-- [ ] 22.7 Add status caching
-- [ ] 22.8 Implement error logging for connection failures
-- [ ] 22.9 Test status checks and error handling
+- [ ] 22.6 Add status caching
+- [ ] 22.7 Implement error logging for connection failures
+- [ ] 22.8 Test status checks and error handling
+
+**Frontend**:
+- [ ] 22.9 Create Server Status page component
+- [ ] 22.10 Create Online players list component
+- [ ] 22.11 Create Server info card component (uptime, version, rates)
+- [ ] 22.12 Implement WebSocket connection for real-time updates
+- [ ] 22.13 Implement status data hooks (useServerStatus, useOnlinePlayers)
 
 ## Phase 6: Admin Panel
 
@@ -212,32 +255,54 @@
 - [ ] 23.4 Create permission decorators for admin endpoints
 
 ### 24. Admin Account Management
+**Backend**:
 - [ ] 24.1 Create account search endpoint
 - [ ] 24.2 Create account edit endpoint
 - [ ] 24.3 Create account ban/unban endpoint
-- [ ] 24.4 Create admin web interface for accounts
-- [ ] 24.5 Test admin account operations
+- [ ] 24.4 Test admin account operations
+
+**Frontend**:
+- [ ] 24.5 Create Admin accounts page component
+- [ ] 24.6 Create Account search and filter component
+- [ ] 24.7 Create Account edit modal component
+- [ ] 24.8 Create Ban/unban confirmation dialogs
 
 ### 25. Admin Character Management
+**Backend**:
 - [ ] 25.1 Create character search endpoint
 - [ ] 25.2 Create character edit endpoint (level, skills, items)
 - [ ] 25.3 Create character delete endpoint
-- [ ] 25.4 Create admin web interface for characters
-- [ ] 25.5 Test admin character operations
+- [ ] 25.4 Test admin character operations
+
+**Frontend**:
+- [ ] 25.5 Create Admin characters page component
+- [ ] 25.6 Create Character edit modal with tabs (stats, skills, items)
+- [ ] 25.7 Create Character delete confirmation dialog
 
 ### 26. Admin Settings & Configuration
+**Backend**:
 - [ ] 26.1 Create settings database table
 - [ ] 26.2 Create settings API endpoints (GET, UPDATE)
-- [ ] 26.3 Create settings web interface
-- [ ] 26.4 Implement settings caching
-- [ ] 26.5 Test settings management
+- [ ] 26.3 Implement settings caching
+- [ ] 26.4 Test settings management
+
+**Frontend**:
+- [ ] 26.5 Create Admin settings page component
+- [ ] 26.6 Create Settings form with categorized sections
+- [ ] 26.7 Add validation for setting values
 
 ### 27. Admin Monitoring & Logging
+**Backend**:
 - [ ] 27.1 Implement audit logging system
 - [ ] 27.2 Create audit log viewing endpoint
-- [ ] 27.3 Create dashboard with key metrics
-- [ ] 27.4 Create admin web dashboard
-- [ ] 27.5 Test audit logging
+- [ ] 27.3 Create dashboard metrics endpoint
+- [ ] 27.4 Test audit logging
+
+**Frontend**:
+- [ ] 27.5 Create Admin dashboard page component
+- [ ] 27.6 Create Metrics cards component (users, online, characters)
+- [ ] 27.7 Create Audit log viewer component with filters
+- [ ] 27.8 Create Charts for statistics (if needed)
 
 ## Phase 7: Plugin System
 
@@ -259,19 +324,23 @@
 - [ ] 29.7 Test hook execution and event cancellation
 
 ### 30. Plugin Features
-- [ ] 30.1 Implement plugin route registration
-- [ ] 30.2 Implement plugin template loading
-- [ ] 30.3 Implement plugin static files serving
-- [ ] 30.4 Implement plugin configuration system
-- [ ] 30.5 Implement plugin database migrations
-- [ ] 30.6 Test plugin loading and initialization
+- [ ] 30.1 Implement plugin route registration (FastAPI routers)
+- [ ] 30.2 Implement plugin configuration system
+- [ ] 30.3 Implement plugin database migrations
+- [ ] 30.4 Test plugin loading and initialization
 
 ### 31. Plugin Management Interface
+**Backend**:
 - [ ] 31.1 Create plugin listing API endpoint
 - [ ] 31.2 Create plugin activation/deactivation endpoints
 - [ ] 31.3 Create plugin configuration endpoints
-- [ ] 31.4 Create admin web interface for plugins
-- [ ] 31.5 Test plugin management operations
+- [ ] 31.4 Test plugin management operations
+
+**Frontend**:
+- [ ] 31.5 Create Admin plugins page component
+- [ ] 31.6 Create Plugin card component (name, version, status)
+- [ ] 31.7 Create Plugin activation toggle component
+- [ ] 31.8 Create Plugin configuration modal
 
 ### 32. Example Plugins
 - [ ] 32.1 Create example plugin: hello-world
@@ -279,115 +348,164 @@
 - [ ] 32.3 Create example plugin: enhanced-highscores
 - [ ] 32.4 Document plugin development guide
 
-## Phase 8: Frontend & Templates
+## Phase 8: UI/UX Polish & Additional Components
 
-### 33. Base Templates
-- [ ] 33.1 Create base layout template (Bootstrap 5)
-- [ ] 33.2 Create navigation menu template
-- [ ] 33.3 Create footer template
-- [ ] 33.4 Create flash messages component
-- [ ] 33.5 Create form macros for common inputs
+### 33. Shared UI Components
+- [ ] 33.1 Create reusable Button component with variants (primary, secondary, danger)
+- [ ] 33.2 Create Card component for content containers
+- [ ] 33.3 Create Modal/Dialog component (Headless UI Dialog)
+- [ ] 33.4 Create Toast/Notification component for messages
+- [ ] 33.5 Create Loading spinner and skeleton components
+- [ ] 33.6 Create Pagination component
+- [ ] 33.7 Create Table component with sorting and filtering
+- [ ] 33.8 Create Form components (Input, Select, Checkbox, Radio)
+- [ ] 33.9 Create Badge component for status indicators
+- [ ] 33.10 Create Tabs component (Headless UI Tabs)
 
-### 34. Page Templates
-- [ ] 34.1 Create homepage template
-- [ ] 34.2 Style authentication pages (login, register)
-- [ ] 34.3 Style account management pages
-- [ ] 34.4 Style character pages
-- [ ] 34.5 Style guild pages
-- [ ] 34.6 Style news pages
-- [ ] 34.7 Style highscores pages
-- [ ] 34.8 Style server status page
-- [ ] 34.9 Style admin panel pages
+### 34. Homepage & Navigation
+- [ ] 34.1 Create Homepage component with server info and recent news
+- [ ] 34.2 Create responsive navigation menu with mobile hamburger
+- [ ] 34.3 Create footer with links and copyright
+- [ ] 34.4 Create breadcrumb navigation component
+- [ ] 34.5 Create user menu dropdown (account, logout)
+- [ ] 34.6 Add active link highlighting in navigation
 
-### 35. Static Assets
-- [ ] 35.1 Add Bootstrap 5 CSS and JS
-- [ ] 35.2 Add custom CSS for MyAAC styling
-- [ ] 35.3 Add JavaScript for interactive features
-- [ ] 35.4 Optimize and bundle assets
-- [ ] 35.5 Set up asset versioning for cache busting
+### 35. Error Handling & Edge Cases
+- [ ] 35.1 Create 404 Not Found page component
+- [ ] 35.2 Create error boundary component for React errors
+- [ ] 35.3 Create API error display component
+- [ ] 35.4 Create empty state components (no data)
+- [ ] 35.5 Create offline detection and display
+- [ ] 35.6 Add global error toast notifications
+
+### 36. Responsive Design & Accessibility
+- [ ] 36.1 Ensure all pages are mobile-responsive
+- [ ] 36.2 Test with different screen sizes (mobile, tablet, desktop)
+- [ ] 36.3 Add proper ARIA labels and roles
+- [ ] 36.4 Ensure keyboard navigation works throughout
+- [ ] 36.5 Test with screen readers
+- [ ] 36.6 Add focus states for all interactive elements
+- [ ] 36.7 Ensure proper color contrast ratios
+
+### 37. Performance Optimization
+- [ ] 37.1 Implement code splitting per route
+- [ ] 37.2 Lazy load components where appropriate
+- [ ] 37.3 Optimize images (use WebP, lazy loading)
+- [ ] 37.4 Implement virtual scrolling for long lists
+- [ ] 37.5 Minimize bundle size (analyze with vite-bundle-visualizer)
+- [ ] 37.6 Add service worker for offline support (optional)
+
+### 38. SEO & Meta Tags
+- [ ] 38.1 Install react-helmet-async
+- [ ] 38.2 Add meta tags to all pages (title, description)
+- [ ] 38.3 Add Open Graph tags for social sharing
+- [ ] 38.4 Create sitemap.xml (if needed)
+- [ ] 38.5 Add robots.txt
 
 ## Phase 9: Testing & Quality Assurance
 
-### 36. Unit Tests
-- [ ] 36.1 Achieve >80% test coverage for business logic
-- [ ] 36.2 Test all database models and queries
-- [ ] 36.3 Test all Pydantic schemas and validation
-- [ ] 36.4 Test authentication and authorization logic
-- [ ] 36.5 Test plugin system components
+### 39. Backend Unit Tests
+- [ ] 39.1 Achieve >80% test coverage for business logic
+- [ ] 39.2 Test all database models and queries
+- [ ] 39.3 Test all Pydantic schemas and validation
+- [ ] 39.4 Test authentication and authorization logic
+- [ ] 39.5 Test plugin system components
 
-### 37. Integration Tests
-- [ ] 37.1 Test API endpoints end-to-end
-- [ ] 37.2 Test web routes and form submissions
-- [ ] 37.3 Test database transactions and rollbacks
-- [ ] 37.4 Test multi-user scenarios
-- [ ] 37.5 Test plugin integration with main app
+### 40. Frontend Unit Tests
+- [ ] 40.1 Test all React components with Vitest + React Testing Library
+- [ ] 40.2 Test custom hooks (useAuth, useCharacters, etc.)
+- [ ] 40.3 Test form validation logic
+- [ ] 40.4 Test API client functions
+- [ ] 40.5 Achieve >70% frontend test coverage
 
-### 38. Performance Tests
-- [ ] 38.1 Benchmark API response times
-- [ ] 38.2 Test database query performance
-- [ ] 38.3 Test caching effectiveness
-- [ ] 38.4 Load test with realistic user counts
-- [ ] 38.5 Profile and optimize bottlenecks
+### 41. Integration Tests
+- [ ] 41.1 Test API endpoints end-to-end (backend)
+- [ ] 41.2 Test database transactions and rollbacks
+- [ ] 41.3 Test multi-user scenarios
+- [ ] 41.4 Test plugin integration with main app
+- [ ] 41.5 Test frontend-backend integration flows
 
-### 39. Security Tests
-- [ ] 39.1 Test SQL injection prevention
-- [ ] 39.2 Test XSS prevention in templates
-- [ ] 39.3 Test CSRF protection
-- [ ] 39.4 Test authentication bypass attempts
-- [ ] 39.5 Test rate limiting
-- [ ] 39.6 Run security linter (bandit)
+### 42. E2E Tests
+- [ ] 42.1 Set up Playwright for E2E testing
+- [ ] 42.2 Test user registration and login flow
+- [ ] 42.3 Test character creation and management
+- [ ] 42.4 Test guild creation and membership
+- [ ] 42.5 Test admin panel operations
+- [ ] 42.6 Test critical user journeys
 
-### 40. Compatibility Tests
-- [ ] 40.1 Test with TFS database schema
-- [ ] 40.2 Test with Canary database schema
-- [ ] 40.3 Test with OTServBR database schema
-- [ ] 40.4 Test schema detection for different distributions
-- [ ] 40.5 Verify MySQL compatibility (MariaDB, MySQL 8.0+)
+### 43. Performance Tests
+- [ ] 43.1 Benchmark API response times
+- [ ] 43.2 Test database query performance
+- [ ] 43.3 Test caching effectiveness
+- [ ] 43.4 Load test with realistic user counts
+- [ ] 43.5 Test frontend bundle size and load time
+- [ ] 43.6 Profile and optimize bottlenecks
+
+### 44. Security Tests
+- [ ] 44.1 Test SQL injection prevention
+- [ ] 44.2 Test XSS prevention (API sanitization)
+- [ ] 44.3 Test CSRF protection for state-changing operations
+- [ ] 44.4 Test authentication bypass attempts
+- [ ] 44.5 Test rate limiting
+- [ ] 44.6 Run security linter on backend (bandit)
+- [ ] 44.7 Run security audit on frontend dependencies (npm audit)
+
+### 45. Compatibility Tests
+- [ ] 45.1 Test with TFS database schema
+- [ ] 45.2 Test with Canary database schema
+- [ ] 45.3 Test with OTServBR database schema
+- [ ] 45.4 Test schema detection for different distributions
+- [ ] 45.5 Verify MySQL compatibility (MariaDB, MySQL 8.0+)
 
 ## Phase 10: Documentation & Deployment
 
-### 41. API Documentation
-- [ ] 41.1 Generate OpenAPI/Swagger documentation
-- [ ] 41.2 Add detailed endpoint descriptions
-- [ ] 41.3 Add request/response examples
-- [ ] 41.4 Document authentication flows
-- [ ] 41.5 Publish API docs
+### 46. API Documentation
+- [ ] 46.1 Generate OpenAPI/Swagger documentation (FastAPI automatic)
+- [ ] 46.2 Add detailed endpoint descriptions
+- [ ] 46.3 Add request/response examples
+- [ ] 46.4 Document authentication flows
+- [ ] 46.5 Publish API docs (served by FastAPI)
 
-### 42. User Documentation
-- [ ] 42.1 Write installation guide
-- [ ] 42.2 Write configuration guide
-- [ ] 42.3 Write deployment guide (Docker, systemd, nginx)
-- [ ] 42.4 Write user manual for features
-- [ ] 42.5 Create troubleshooting guide
-- [ ] 42.6 Write FAQ
+### 47. User Documentation
+- [ ] 47.1 Write installation guide (backend + frontend)
+- [ ] 47.2 Write configuration guide
+- [ ] 47.3 Write deployment guide (Docker, systemd, nginx)
+- [ ] 47.4 Write user manual for features
+- [ ] 47.5 Create troubleshooting guide
+- [ ] 47.6 Write FAQ
 
-### 43. Developer Documentation
-- [ ] 43.1 Write project architecture overview
-- [ ] 43.2 Write plugin development guide
-- [ ] 43.3 Write contributing guidelines
-- [ ] 43.4 Document code standards and conventions
-- [ ] 43.5 Create development setup guide
-- [ ] 43.6 Document database schema
+### 48. Developer Documentation
+- [ ] 48.1 Write project architecture overview (backend + frontend)
+- [ ] 48.2 Write plugin development guide
+- [ ] 48.3 Write contributing guidelines
+- [ ] 48.4 Document code standards and conventions (Python + TypeScript)
+- [ ] 48.5 Create development setup guide
+- [ ] 48.6 Document database schema
+- [ ] 48.7 Write frontend component documentation (Storybook optional)
 
-### 44. Deployment Configuration
-- [ ] 44.1 Create Dockerfile
-- [ ] 44.2 Create docker-compose.yml (app + MySQL + Redis)
-- [ ] 44.3 Create systemd service file
-- [ ] 44.4 Create nginx configuration example
-- [ ] 44.5 Create environment variables template (.env.example)
-- [ ] 44.6 Write deployment security checklist
+### 49. Deployment Configuration
+- [ ] 49.1 Create backend Dockerfile
+- [ ] 49.2 Create frontend Dockerfile (multi-stage with nginx)
+- [ ] 49.3 Create docker-compose.yml (backend + frontend + MySQL + Redis)
+- [ ] 49.4 Create systemd service files (backend + frontend)
+- [ ] 49.5 Create nginx configuration example (reverse proxy + SPA routing)
+- [ ] 49.6 Create environment variables templates (.env.example for both)
+- [ ] 49.7 Write deployment security checklist
 
-### 45. Migration Guide
-- [ ] 45.1 Document differences from PHP version
-- [ ] 45.2 Create PHP to Python migration guide
-- [ ] 45.3 Document database compatibility considerations
-- [ ] 45.4 Create plugin migration guide
-- [ ] 45.5 Document breaking changes and alternatives
+### 50. Migration Guide
+- [ ] 50.1 Document differences from PHP version
+- [ ] 50.2 Create PHP to Python migration guide
+- [ ] 50.3 Document database compatibility considerations
+- [ ] 50.4 Create plugin migration guide
+- [ ] 50.5 Document breaking changes and alternatives
+- [ ] 50.6 Create comparison table (PHP vs Python features)
 
-### 46. Release Preparation
-- [ ] 46.1 Set up semantic versioning
-- [ ] 46.2 Create changelog
-- [ ] 46.3 Tag v0.1.0 release
-- [ ] 46.4 Publish to PyPI (optional)
-- [ ] 46.5 Create GitHub release with binaries
-- [ ] 46.6 Announce release and gather feedback
+### 51. Release Preparation
+- [ ] 51.1 Set up semantic versioning (backend + frontend)
+- [ ] 51.2 Create changelog (CHANGELOG.md)
+- [ ] 51.3 Tag v0.1.0 release
+- [ ] 51.4 Publish backend to PyPI (optional)
+- [ ] 51.5 Publish frontend to npm (optional)
+- [ ] 51.6 Create GitHub release with Docker images
+- [ ] 51.7 Create demo deployment
+- [ ] 51.8 Announce release and gather feedback

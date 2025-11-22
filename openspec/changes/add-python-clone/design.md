@@ -94,49 +94,87 @@ class Account(Base):
     # ... other fields
 ```
 
-### Decision 3: Architecture Pattern - **API-First with SSR Option**
+### Decision 3: Architecture Pattern - **API-First with React SPA**
 
-**Choice**: Hybrid architecture supporting both REST API and server-side rendering
+**Choice**: Full REST API backend with React Single Page Application frontend
 
 **Rationale**:
-- Flexibility: Support both modern SPAs and traditional server-rendered pages
-- Future-proof: Can migrate fully to API + SPA over time
-- Compatibility: Server-side rendering maintains similarity to PHP version
-- Developer Choice: Let deployments choose their preferred approach
+- **Modern User Experience**: React provides smooth, app-like interactions
+- **Clear Separation**: Backend (FastAPI) and frontend (React) are completely decoupled
+- **Scalability**: API can serve multiple clients (web, mobile apps, third-party integrations)
+- **Developer Experience**: Rich ecosystem of React libraries and tools
+- **Performance**: Client-side rendering reduces server load, better perceived performance
+- **Type Safety**: Can use TypeScript for end-to-end type safety
 
 **Structure**:
 ```
-app/
-├── api/           # REST API endpoints (FastAPI routers)
-│   ├── v1/
-│   │   ├── accounts.py
+backend/
+├── app/
+│   ├── api/           # REST API endpoints (FastAPI routers)
+│   │   └── v1/
+│   │       ├── accounts.py
+│   │       ├── characters.py
+│   │       └── guilds.py
+│   ├── core/          # Business logic
+│   │   ├── auth.py
 │   │   ├── characters.py
 │   │   └── guilds.py
-├── web/           # Server-side rendered pages (Jinja2 templates)
-│   ├── templates/
-│   └── routes.py
-├── core/          # Business logic (shared by API and web)
-│   ├── auth.py
-│   ├── characters.py
-│   └── guilds.py
-├── models/        # SQLAlchemy models
-├── schemas/       # Pydantic schemas (validation, serialization)
-└── plugins/       # Plugin system
+│   ├── models/        # SQLAlchemy models
+│   ├── schemas/       # Pydantic schemas (validation, serialization)
+│   └── plugins/       # Plugin system
+├── tests/
+└── pyproject.toml
+
+frontend/
+├── src/
+│   ├── components/    # React components
+│   ├── pages/         # Page components (routes)
+│   ├── api/           # API client functions
+│   ├── hooks/         # Custom React hooks
+│   ├── context/       # React Context providers
+│   └── utils/         # Utilities
+├── public/
+└── package.json
 ```
 
-### Decision 4: Frontend - **Bootstrap 5 + Optional HTMX**
+### Decision 4: Frontend Stack - **React + TypeScript + Tailwind CSS**
 
-**Choice**: Bootstrap 5 for CSS framework, HTMX for enhanced interactivity (optional)
+**Choice**: React with TypeScript and Tailwind CSS for styling
 
 **Rationale**:
-- Bootstrap 5: Modern, well-documented, easy migration from Bootstrap 4.6
-- HTMX: Add interactivity without heavy JavaScript frameworks
-- Progressive Enhancement: Start with SSR, add interactivity where needed
-- Familiarity: Similar to existing PHP version frontend
+- **React**: Industry-standard, large community, mature ecosystem
+- **TypeScript**: Type safety for frontend code, better IDE support, fewer runtime errors
+- **Tailwind CSS**: Utility-first CSS framework for rapid UI development
+  - Highly customizable and themeable
+  - Smaller CSS bundle (purges unused styles)
+  - Consistent design system
+  - Modern, professional look
+  - Better performance than Bootstrap (no unused CSS)
 
-**Alternatives**:
-- React/Vue/Svelte: Supported via REST API, but not default
-- Alpine.js: Lighter alternative to HTMX, also viable
+**Additional Frontend Tools**:
+- **Vite**: Fast build tool with HMR (Hot Module Replacement)
+- **React Router**: Client-side routing
+- **TanStack Query (React Query)**: Data fetching, caching, and state management
+- **Axios**: HTTP client for API calls
+- **React Hook Form**: Form handling with validation
+- **Zod**: Schema validation (complements backend Pydantic schemas)
+- **Headless UI**: Unstyled accessible components for Tailwind
+
+**Alternatives Considered**:
+1. **Bootstrap 5**:
+   - Pros: Component library included, familiar
+   - Cons: Heavier, less flexible, more opinionated styling
+   - Why rejected: Tailwind offers more flexibility and better performance
+
+2. **Material UI (MUI)**:
+   - Pros: Comprehensive component library, polished look
+   - Cons: Heavy bundle size, harder to customize
+   - Why rejected: Tailwind + Headless UI more lightweight and flexible
+
+3. **Chakra UI**:
+   - Pros: Good developer experience, accessible components
+   - Cons: Less flexible than Tailwind, smaller ecosystem
+   - Why rejected: Tailwind is more popular and has better long-term support
 
 ### Decision 5: Plugin System - **Entry Points + Hooks**
 
@@ -146,6 +184,7 @@ app/
 - Entry Points: Standard Python mechanism for plugin discovery
 - Hooks: Event-driven architecture for extensibility
 - Type Safety: Typed hook signatures for better DX
+- API Extension: Plugins can add custom API endpoints
 
 **Pattern**:
 ```python
@@ -162,29 +201,45 @@ async def validate_character_name(character_data: CharacterCreateData):
     pass
 ```
 
-### Decision 6: Authentication - **JWT + Session Hybrid**
+### Decision 6: Authentication - **JWT Token Based**
 
-**Choice**: JWT tokens for API, session cookies for web interface
+**Choice**: JWT tokens for all authentication (API and web frontend)
 
 **Rationale**:
-- JWT: Stateless authentication for API consumers
-- Sessions: Traditional session management for web interface (compatibility)
-- Security: Both approaches supported, user/deployment can choose
+- **Stateless**: No server-side session storage required
+- **Scalability**: Easy to scale horizontally without session persistence
+- **SPA Friendly**: Perfect for React frontend consuming REST API
+- **Secure**: Access tokens (short-lived) + refresh tokens (long-lived)
+- **Standard**: Industry-standard approach for modern web applications
 
 **Implementation**:
 - `python-jose` for JWT handling
-- `itsdangerous` for session management (FastAPI built-in)
-- Configurable token expiration and refresh
+- Access token expiration: 15-30 minutes
+- Refresh token expiration: 7-30 days
+- Refresh token rotation for security
+- Token storage in frontend: `localStorage` or `sessionStorage`
+- HTTP-only cookies for refresh tokens (optional, more secure)
 
 ### Decision 7: Development Tools
 
-**Choices**:
+**Backend Tools**:
 - **Package Management**: Poetry (better dependency resolution than pip)
 - **Linting/Formatting**: Ruff (all-in-one, extremely fast)
 - **Type Checking**: mypy (most mature, wide adoption)
 - **Testing**: pytest + pytest-asyncio + httpx (async support)
 - **Documentation**: MkDocs with Material theme
 - **CI/CD**: GitHub Actions (consistency with PHP version)
+
+**Frontend Tools**:
+- **Package Management**: npm or pnpm (pnpm is faster and more efficient)
+- **Build Tool**: Vite (extremely fast HMR, optimized builds)
+- **Linting**: ESLint with TypeScript plugin
+- **Formatting**: Prettier
+- **Type Checking**: TypeScript compiler (tsc)
+- **Testing**: Vitest (unit tests, fast, Vite-powered) + React Testing Library
+- **E2E Testing**: Playwright or Cypress
+- **State Management**: TanStack Query + React Context (Zustand if needed)
+- **CSS**: Tailwind CSS with PostCSS
 
 ## Technical Details
 
@@ -255,6 +310,45 @@ class PluginProtocol(Protocol):
         ...
 ```
 
+### Frontend-Backend Communication
+
+**API Contract**:
+- Backend exposes RESTful API with OpenAPI specification
+- Frontend consumes API using typed API client (generated from OpenAPI)
+- Data validation on both sides: Pydantic (backend) + Zod (frontend)
+- Error handling: Standardized error responses (RFC 7807 Problem Details)
+
+**CORS Configuration**:
+```python
+from fastapi.middleware.cors import CORSMiddleware
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],  # Vite dev server
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+```
+
+**API Response Format**:
+```typescript
+// Success response
+interface ApiResponse<T> {
+  data: T;
+  message?: string;
+}
+
+// Error response
+interface ApiError {
+  type: string;
+  title: string;
+  status: number;
+  detail: string;
+  errors?: Record<string, string[]>;
+}
+```
+
 ## Risks / Trade-offs
 
 ### Risk: Community Adoption
@@ -298,32 +392,71 @@ class PluginProtocol(Protocol):
 
 ## Migration Plan
 
-### Phase 1: Foundation (Weeks 1-2)
+### Phase 1: Backend Foundation (Weeks 1-2)
 1. Project scaffolding (Poetry, directory structure)
 2. Database models (Account, Character, Guild basic models)
-3. FastAPI app setup
-4. Authentication system (JWT + sessions)
+3. FastAPI app setup with CORS
+4. Authentication system (JWT tokens)
+5. OpenAPI documentation setup
 
-### Phase 2: Core Features (Weeks 3-5)
-1. Account management (create, login, settings)
-2. Character management (CRUD operations)
-3. Guild management (CRUD, membership)
-4. Server status monitoring
+### Phase 2: Frontend Foundation (Weeks 1-2, parallel)
+1. React + TypeScript project setup (Vite)
+2. Tailwind CSS configuration
+3. Basic layout components (header, footer, navigation)
+4. Routing setup (React Router)
+5. API client setup (Axios + TanStack Query)
+6. Authentication context and protected routes
 
-### Phase 3: Content Features (Weeks 6-7)
-1. News system (posts, comments)
-2. Highscores (rankings)
-3. Templates and frontend (Bootstrap 5)
+### Phase 3: Core API & UI (Weeks 3-5)
+**Backend**:
+1. Account management API (create, login, settings)
+2. Character management API (CRUD operations)
+3. Guild management API (CRUD, membership)
+4. Server status API and WebSocket
 
-### Phase 4: Admin & Plugins (Weeks 8-9)
-1. Admin panel (user management, settings)
+**Frontend**:
+1. Login, registration, account pages
+2. Character listing, creation, profile pages
+3. Guild listing, creation, profile pages
+4. Server status page with real-time updates
+
+### Phase 4: Content Features (Weeks 6-7)
+**Backend**:
+1. News system API (posts, comments)
+2. Highscores API (rankings, caching)
+
+**Frontend**:
+1. News listing, detail, comment components
+2. Highscores tables with filtering
+3. Search functionality
+
+### Phase 5: Admin & Plugins (Weeks 8-9)
+**Backend**:
+1. Admin API endpoints (user/character management, settings)
 2. Plugin system architecture
 3. Sample plugins
 
-### Phase 5: Testing & Documentation (Week 10)
-1. Comprehensive test suite (pytest)
-2. API documentation (OpenAPI/Swagger)
-3. Deployment guides
+**Frontend**:
+1. Admin panel UI (dashboard, user management)
+2. Settings management interface
+3. Plugin management UI
+
+### Phase 6: Testing, Optimization & Documentation (Weeks 10-11)
+**Backend**:
+1. Comprehensive test suite (pytest, coverage >80%)
+2. Performance optimization (query optimization, caching)
+3. API documentation (OpenAPI/Swagger)
+
+**Frontend**:
+1. Component tests (Vitest + React Testing Library)
+2. E2E tests (Playwright)
+3. Performance optimization (code splitting, lazy loading)
+4. SEO optimization (React Helmet)
+
+**Documentation**:
+1. Deployment guides (Docker, nginx, systemd)
+2. API documentation
+3. User manual
 4. Migration guide from PHP version
 
 ### Rollback Plan
@@ -356,13 +489,10 @@ Since this is a new parallel implementation:
   2. MVP: Core features first (auth, characters, guilds), expand over time
 - **Recommendation**: MVP approach - release v0.1 with core features, iterate
 
-### Q4: Frontend Strategy
+### Q4: Frontend Strategy ✅ **RESOLVED**
 - **Question**: Server-side rendering only, API-first only, or both?
-- **Options**:
-  1. SSR only (like PHP version)
-  2. API only (modern, let users build their own frontend)
-  3. Both (hybrid approach)
-- **Recommendation**: Both - API-first with default templates for compatibility
+- **Decision**: API-first with React + TypeScript + Tailwind CSS frontend
+- **Rationale**: Modern SPA provides better UX, clear separation of concerns, and scalability
 
 ### Q5: Premium/Payment Features
 - **Question**: Include payment gateway integrations or defer to plugins?
