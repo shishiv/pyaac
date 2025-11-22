@@ -44,6 +44,12 @@ export default function Layout({ children }: LayoutProps) {
                   </>
                 )}
                 <Link
+                  to="/highscores"
+                  className="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-900 dark:text-gray-100 hover:text-primary-600"
+                >
+                  Highscores
+                </Link>
+                <Link
                   to="/server-status"
                   className="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-900 dark:text-gray-100 hover:text-primary-600"
                 >

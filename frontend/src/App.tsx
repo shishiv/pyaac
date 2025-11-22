@@ -9,6 +9,7 @@ import CharacterDetailPage from './pages/CharacterDetailPage'
 import GuildsPage from './pages/GuildsPage'
 import GuildDetailPage from './pages/GuildDetailPage'
 import AccountSettingsPage from './pages/AccountSettingsPage'
+import HighscoresPage from './pages/HighscoresPage'
 import ServerStatusPage from './pages/ServerStatusPage'
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="/highscores" element={<HighscoresPage />} />
         <Route path="/server-status" element={<ServerStatusPage />} />
 
         {/* Protected Routes */}
