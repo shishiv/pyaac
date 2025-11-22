@@ -45,6 +45,7 @@ class AccountResponse(BaseModel):
     premdays: int | None = None
     coins: int | None = None
     character_count: int = 0
+    type: int | None = 1
 
     model_config = {"from_attributes": True}
 
@@ -62,3 +63,10 @@ class TokenResponse(BaseModel):
     access_token: str
     refresh_token: str
     token_type: str = "bearer"
+
+
+class ChangePasswordRequest(BaseModel):
+    """Schema for change password request."""
+
+    current_password: str = Field(..., description="Current password")
+    new_password: str = Field(..., min_length=6, description="New password (min 6 characters)")
