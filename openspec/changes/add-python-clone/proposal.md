@@ -1,4 +1,9 @@
-# Change: Python Clone of MyAAC
+# Change: PyAAC - Python Alternative to MyAAC
+
+> **Project Name**: PyAAC (Python Automatic Account Creator)
+> **Repository**: Separate from MyAAC PHP (to be created)
+> **Approach**: MVP-first with iterative expansion
+> **Deployment**: Docker-first with traditional support
 
 ## Why
 
@@ -8,7 +13,7 @@ The current MyAAC is built on PHP 8.1+, which works well but has limitations in 
 - Modern web framework ecosystems with better developer experience
 - Growing Python ecosystem for web development with mature frameworks like FastAPI and Django
 
-A Python clone would provide an alternative implementation that:
+PyAAC will provide a modern Python alternative that:
 - Maintains full compatibility with existing Open Tibia Server databases
 - Offers better performance for I/O-bound operations through async patterns
 - Provides a modern, type-safe codebase for easier maintenance
@@ -118,7 +123,7 @@ This is a large, multi-phase project that should be broken into milestones:
 ### Open Questions
 1. ~~**Framework Choice**~~: ✅ **RESOLVED** - FastAPI for backend
 2. ~~**Frontend Stack**~~: ✅ **RESOLVED** - React + TypeScript + Tailwind CSS
-3. **Repository**: Separate repo or monorepo with PHP version?
-4. **Branding**: Name it differently (PyAAC, MyAAC-Python) or keep MyAAC brand?
-5. **Feature Parity**: Full 1:1 feature parity or start with core features and expand?
-6. **Deployment**: Docker-first or support traditional deployment too?
+3. **Repository**: Separate repo or monorepo with PHP version? *(To be decided)*
+4. ~~**Branding**~~: ✅ **RESOLVED** - **PyAAC** (distinct brand, Python-focused)
+5. ~~**Feature Parity**~~: ✅ **RESOLVED** - **MVP approach** (core features first, expand iteratively)
+6. ~~**Deployment**~~: ✅ **RESOLVED** - **Docker-first** (primary deployment method with optional traditional support)

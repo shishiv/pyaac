@@ -467,13 +467,15 @@ Since this is a new parallel implementation:
 
 ## Open Questions
 
-### Q1: Package Name and Branding
+### Q1: Package Name and Branding ✅ **RESOLVED**
 - **Question**: Should we name it `myaac-python`, `pyaac`, or keep it separate brand?
-- **Options**:
-  1. `myaac` (same brand, clear it's official alternative)
-  2. `pyaac` (distinct name, separate project)
-  3. `myaac-python` (explicit about implementation)
-- **Recommendation**: `myaac-python` for clarity, or `pyaac` if wanting separate identity
+- **Decision**: **PyAAC** (distinct name, separate project identity)
+- **Rationale**:
+  - Clear Python focus distinguishes it from PHP version
+  - Shorter, more memorable name
+  - Easier to find in package repositories (PyPI, npm)
+  - Allows independent branding and community
+  - Package names: `pyaac` (backend on PyPI), `@pyaac/web` (frontend on npm)
 
 ### Q2: Repository Location
 - **Question**: Same repo as PHP version (monorepo) or separate repository?
@@ -482,12 +484,32 @@ Since this is a new parallel implementation:
   2. Separate repos: `myaac` and `myaac-python`
 - **Recommendation**: Separate repository for independent versioning and CI/CD
 
-### Q3: Feature Parity Strategy
+### Q3: Feature Parity Strategy ✅ **RESOLVED**
 - **Question**: Full feature parity from day 1, or MVP → iterate?
-- **Options**:
-  1. Full parity: Delay release until all features implemented
-  2. MVP: Core features first (auth, characters, guilds), expand over time
-- **Recommendation**: MVP approach - release v0.1 with core features, iterate
+- **Decision**: **MVP approach** - Core features first, expand iteratively
+- **Rationale**:
+  - Faster time to market and user feedback
+  - Allows validating architecture with real-world usage
+  - Reduces risk of over-engineering
+  - Community can contribute additional features post-MVP
+  - Easier to maintain quality with smaller scope
+
+**MVP v0.1 Scope** (Core Features):
+- ✅ Account management (registration, login, recovery)
+- ✅ Character management (CRUD, vocations, stats)
+- ✅ Guild system (creation, membership, basic management)
+- ✅ Server status (online/offline, player count)
+- ✅ Basic admin panel (user/character management)
+- ✅ Plugin system foundation
+
+**Post-MVP** (Expand in future releases):
+- News system with comments
+- Advanced highscores (multiple categories)
+- Guild wars
+- Payment integrations (via plugins)
+- Advanced admin features (audit logs, statistics)
+- Premium account features
+- Email notifications
 
 ### Q4: Frontend Strategy ✅ **RESOLVED**
 - **Question**: Server-side rendering only, API-first only, or both?
@@ -509,12 +531,33 @@ Since this is a new parallel implementation:
   3. SSE: Server-Sent Events (middle ground)
 - **Recommendation**: WebSocket for real-time features (FastAPI has native support)
 
-### Q7: Docker Deployment
+### Q7: Docker Deployment ✅ **RESOLVED**
 - **Question**: Provide Docker images and docker-compose setup?
-- **Options**:
-  1. Docker-first: Primary deployment method
-  2. Optional: Support but don't require Docker
-- **Recommendation**: Provide Docker setup as recommended deployment, support traditional too
+- **Decision**: **Docker-first** deployment strategy
+- **Rationale**:
+  - Simplifies deployment and reduces configuration errors
+  - Ensures consistent environment across development and production
+  - Easier dependency management (Python, Node, MySQL, Redis)
+  - Popular in OTS community for game server hosting
+  - Provides isolation and security benefits
+  - Easy to scale horizontally with container orchestration
+
+**Implementation**:
+- Provide official Docker images for backend and frontend
+- Include docker-compose.yml for complete stack
+- Document traditional deployment as alternative
+- Support both development and production Docker configs
+- Publish images to Docker Hub or GitHub Container Registry
+- Include health checks and proper logging in containers
+
+**Docker Compose Stack**:
+```yaml
+services:
+  backend:     # FastAPI + Uvicorn
+  frontend:    # React build served by nginx
+  mysql:       # Database (optional, can use existing)
+  redis:       # Cache and session storage
+```
 
 ## Success Criteria
 
